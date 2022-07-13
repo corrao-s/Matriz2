@@ -10,7 +10,7 @@ namespace Matriz2
 {
     internal class Mapa
     {
-        internal const int bloque = 20;
+        internal const int bloque = 30;
         int size;
         List<IMappeable> objetos;
 
@@ -22,11 +22,7 @@ namespace Matriz2
             {
                 if (!EstaLibre(item.GetPosicion()))
                 {
-                    throw new Exception("Error.");
-                }
-                if (!(item.GetPosicion().X< size && item.GetPosicion().Y< size && item.GetPosicion().X>= 0 && item.GetPosicion().Y>=0))
-                {
-                    throw new Exception("Fuera de la matriz");
+                    throw new Exception("Posicion no disponible o fuera de la matriz");
                 }
                 objetos.Add(item);
                 item.mapa = this;
@@ -35,11 +31,7 @@ namespace Matriz2
             {
                 if (!EstaLibre(item.GetPosicion()))
                 {
-                    throw new Exception("Error.");
-                }
-                if (!(item.GetPosicion().X < size && item.GetPosicion().Y < size && item.GetPosicion().X > 0 && item.GetPosicion().Y > 0))
-                {
-                    throw new Exception("Fuera de la matriz");
+                    throw new Exception("Posicion no disponible o fuera de la matriz");
                 }
                 objetos.Add(item);
             }
@@ -57,7 +49,8 @@ namespace Matriz2
         }
         internal bool EstaLibre(Point p)
         {
-            return !objetos.Any(o => o.GetPosicion() == p);
+            return (p.X < size && p.Y < size && p.X >= 0 && p.Y >= 0) &&
+                 !objetos.Any(o => o.GetPosicion() == p);
         }
     }
 }
